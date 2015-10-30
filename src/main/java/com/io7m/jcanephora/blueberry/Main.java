@@ -45,18 +45,19 @@ public final class Main
 
   public static void main(final String[] args)
   {
-    final TestReportConfig xml_config = new TestReportConfig();
-    xml_config.setOutputEnvironment(true);
-    xml_config.setOutputSystemProperties(true);
-
-    final GUIProjectVersion version = new GUIProjectVersion(0, 40, 0, "SNAPSHOT");
+    final GUIProjectVersion version =
+      new GUIProjectVersion(0, 40, 0, "SNAPSHOT");
     final GUIProjectInfo info = new GUIProjectInfo("jcanephora", version);
+    final TestReportConfig report_config = info.getReportConfig();
+    report_config.setOutputEnvironment(true);
+    report_config.setOutputSystemProperties(true);
+
     info.addPackagePrefix("com.io7m.jcanephora");
     info.setProjectURI(URI.create("http://io7m.github.io/jcanephora"));
 
     SwingUtilities.invokeLater(
       () -> {
-        final GUI g = new GUI(info, xml_config);
+        final GUI g = new GUI(info);
         g.getMainWindow()
           .setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
       });
